@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0B1F17">
+<title>Surat Keterangan Sehat — Poliklinik Polres Lombok Barat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    color-scheme: dark;
+    --bg-1:#050D0A;
+    --bg-2:#0B1F17;
+    --panel:rgba(255,255,255,0.045);
+    --panel-border:rgba(232,196,104,0.16);
+    --emerald:#17E3A0;
+    --emerald-soft:rgba(23,227,160,0.18);
+    --emas:#E8C468;
+    --emas-soft:rgba(232,196,104,0.18);
+    --teks:#EAF3EE;
+    --teks-muted:#8FA69A;
+    --merah:#FF8A8A;
+    --merah-bg:rgba(255,107,107,0.12);
+    --font-display:'Space Grotesk', sans-serif;
+    --font-body:'Inter', sans-serif;
+    --font-mono:'IBM Plex Mono', monospace;
+    --radius:20px;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+
+  body{
+    font-family:var(--font-body);
+    color:var(--teks);
+    min-height:100vh;
+    background:
+      radial-gradient(ellipse 700px 500px at 10% -8%, rgba(232,196,104,0.12), transparent 60%),
+      radial-gradient(ellipse 850px 650px at 105% 10%, rgba(23,227,160,0.16), transparent 55%),
+      radial-gradient(ellipse 650px 550px at 85% 100%, rgba(23,227,160,0.09), transparent 60%),
+      linear-gradient(160deg, var(--bg-2), var(--bg-1) 70%);
+    background-size:130% 130%;
+    animation: ambientPan 20s ease-in-out infinite alternate;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
+    padding:calc(36px + env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) calc(56px + env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+    position:relative;
+  }
+  @keyframes ambientPan{ from{background-position:0% 0%;} to{background-position:18% 12%;} }
+
+  body::before{
+    content:"";
+    position:fixed;inset:0;pointer-events:none;z-index:0;
+    opacity:0.05;
+    background-image:
+      linear-gradient(rgba(234,243,238,0.5) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(234,243,238,0.5) 1px, transparent 1px);
+    background-size:42px 42px;
+    mask-image:radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 80%);
+  }
+
+  .wrap{
+    width:100%;
+    max-width:600px;
+    position:relative;
+    z-index:1;
+  }
+
+  .letterhead{
+    text-align:center;
+    padding:6px 12px 26px;
+  }
+  .letterhead-brand{
+    display:flex;align-items:center;justify-content:center;gap:14px;
+    margin-bottom:16px;
+  }
+  .letterhead .lambang{
+    width:58px;height:58px;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;
+    filter:drop-shadow(0 8px 18px rgba(0,0,0,0.55));
+  }
+  .letterhead .lambang svg{width:100%;height:100%;}
+  .letterhead-teks{text-align:left;}
+  .letterhead .eyebrow{
+    font-family:var(--font-mono);
+    font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;
+    color:var(--emerald);font-weight:600;margin-bottom:6px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .letterhead h1{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:clamp(24px,4.6vw,32px);
+    margin:0;
+    letter-spacing:-.01em;
+    background:linear-gradient(100deg, var(--teks) 40%, var(--emas) 90%);
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  }
+  .letterhead p{
+    margin:14px auto 0;font-size:14px;color:var(--teks-muted);
+    max-width:420px;line-height:1.6;
+  }
+  .letterhead .garis-hias{
+    width:64px;height:2px;margin:20px auto 0;
+    background:linear-gradient(90deg, transparent, var(--emas), transparent);
+    opacity:.7;
+  }
+
+  .card{
+    position:relative;
+    background:var(--panel);
+    backdrop-filter:blur(24px) saturate(140%);
+    -webkit-backdrop-filter:blur(24px) saturate(140%);
+    border-radius:var(--radius);
+    border:1px solid var(--panel-border);
+    box-shadow:0 34px 70px -26px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.06);
+    animation:masukKartu .6s ease both;
+  }
+  @keyframes masukKartu{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+
+  .card::before{
+    content:"";position:absolute;inset:0;padding:1px;border-radius:inherit;
+    background:linear-gradient(115deg, transparent 15%, rgba(232,196,104,0.55) 38%, rgba(23,227,160,0.5) 52%, transparent 75%);
+    background-size:240% 240%;
+    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor; mask-composite:exclude;
+    animation:sheen 8s linear infinite;
+    pointer-events:none;
+  }
+  @keyframes sheen{0%{background-position:0% 0%;}100%{background-position:100% 100%;}}
+
+  /* ---------- progres langkah ---------- */
+  .progres{display:flex;align-items:center;padding:26px 26px 6px;position:relative;}
+  .langkah{display:flex;flex-direction:column;align-items:center;gap:8px;flex-shrink:0;}
+  .langkah .node{
+    width:32px;height:32px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    border:1.6px solid rgba(255,255,255,0.16);
+    background:rgba(255,255,255,0.03);
+    font-family:var(--font-mono);font-size:12.5px;font-weight:600;color:var(--teks-muted);
+    transition:all .25s;
+  }
+  .langkah .label{font-size:10.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--teks-muted);white-space:nowrap;}
+  .langkah.aktif .node{border-color:var(--emerald);color:var(--emerald);box-shadow:0 0 0 4px var(--emerald-soft), 0 0 16px -2px rgba(23,227,160,0.65);}
+  .langkah.aktif .label{color:var(--teks);}
+  .langkah.selesai .node{background:linear-gradient(135deg,var(--emas),#C9A227);border-color:transparent;color:#241900;font-size:0;}
+  .langkah.selesai .node::after{content:'✓';font-size:14px;font-family:var(--font-body);}
+  .langkah.selesai .label{color:var(--emas);}
+  .garis{flex:1;height:2px;background:rgba(255,255,255,0.1);margin:0 6px 22px;position:relative;overflow:hidden;border-radius:2px;}
+  .garis i{position:absolute;inset:0;width:0%;background:linear-gradient(90deg,var(--emas),var(--emerald));transition:width .45s ease;display:block;}
+  .langkah.selesai + .garis i{width:100%;}
+
+  form{padding:22px 26px 28px;}
+
+  .step{display:none;animation:masuk .35s ease;}
+  .step.aktif{display:block;}
+  @keyframes masuk{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+  .step h2{font-family:var(--font-display);font-size:19px;font-weight:600;margin:0 0 4px;color:var(--teks);}
+  .step .ket{font-size:13px;color:var(--teks-muted);margin:0 0 20px;}
+
+  .subjudul{
+    display:flex;align-items:center;gap:10px;
+    margin:26px 0 16px;
+    font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--emas);
+  }
+  .subjudul::after{content:"";flex:1;height:1px;background:linear-gradient(90deg, rgba(232,196,104,0.35), transparent);}
+
+  .field{margin-bottom:16px;}
+  .field label{display:block;font-size:12.5px;font-weight:600;color:var(--teks);margin-bottom:7px;letter-spacing:.01em;}
+  .field label .opsional{font-weight:400;color:var(--teks-muted);}
+  .field input,.field select,.field textarea{
+    width:100%;
+    font-family:var(--font-body);
+    font-size:16px;
+    padding:12px 14px;
+    border:1.4px solid rgba(255,255,255,0.12);
+    border-radius:11px;
+    background:rgba(255,255,255,0.035);
+    color:var(--teks);
+    transition:border-color .15s, box-shadow .15s, background .15s;
+  }
+  .field input::placeholder,.field textarea::placeholder{color:rgba(143,166,154,0.55);}
+  .field input:focus,.field select:focus,.field textarea:focus{
+    outline:none;border-color:var(--emerald);background:rgba(23,227,160,0.04);
+    box-shadow:0 0 0 3px var(--emerald-soft), 0 0 18px -6px rgba(23,227,160,0.5);
+  }
+  .field input.mono{font-family:var(--font-mono);letter-spacing:.03em;}
+  .field textarea{resize:vertical;min-height:70px;}
+  .field select{ -webkit-appearance:none;appearance:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238FA69A' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 14px center;background-size:16px;padding-right:38px;
+  }
+  .field small.err{display:none;color:var(--merah);font-size:12px;margin-top:5px;font-weight:600;}
+  .field.invalid input,.field.invalid select,.field.invalid textarea{border-color:var(--merah);}
+  .field.invalid small.err{display:block;}
+
+  /* ---------- dropdown kustom (pengganti <select> native) ---------- */
+  .dselect{position:relative;}
+  .dselect-tombol{
+    width:100%;display:flex;align-items:center;justify-content:space-between;gap:8px;
+    font-family:var(--font-body);font-size:16px;text-align:left;
+    padding:12px 14px;border:1.4px solid rgba(255,255,255,0.12);border-radius:11px;
+    background:rgba(255,255,255,0.035);color:var(--teks);cursor:pointer;
+  }
+  .dselect-tombol:focus{outline:none;}
+  .dselect-label.placeholder{color:rgba(143,166,154,0.55);}
+  .dselect-panah{width:16px;height:16px;color:var(--teks-muted);transition:transform .2s;flex-shrink:0;}
+  .dselect.terbuka .dselect-panah{transform:rotate(180deg);}
+  .dselect.terbuka .dselect-tombol{border-color:var(--emerald);background:rgba(23,227,160,0.04);box-shadow:0 0 0 3px var(--emerald-soft), 0 0 18px -6px rgba(23,227,160,0.5);}
+  .dselect-daftar{
+    display:none;position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:20;
+    max-height:240px;overflow:auto;padding:6px;border-radius:12px;
+    background:#0E241C;border:1px solid rgba(232,196,104,0.25);
+    box-shadow:0 20px 40px -14px rgba(0,0,0,0.6);
+  }
+  .dselect.terbuka .dselect-daftar{display:block;}
+  .dselect-daftar li{padding:10px 12px;border-radius:8px;font-size:14.5px;color:var(--teks);cursor:pointer;}
+  .dselect-daftar li:hover{background:rgba(23,227,160,0.14);}
+  .dselect-daftar li.dipilih{color:var(--emas);font-weight:600;background:rgba(232,196,104,0.08);}
+  .field.invalid .dselect-tombol{border-color:var(--merah);}
+
+  .nav{display:flex;justify-content:space-between;gap:12px;margin-top:24px;}
+  button{
+    font-family:var(--font-body);
+    font-weight:700;font-size:14.5px;
+    padding:13px 22px;border-radius:11px;border:none;cursor:pointer;
+    min-height:46px;
+    transition:transform .12s, box-shadow .12s, filter .15s;
+  }
+  button:active{transform:scale(0.97);}
+  .btn-utama{background:linear-gradient(135deg,var(--emerald),#0FBF86);color:#052018;box-shadow:0 12px 26px -12px rgba(23,227,160,0.6);}
+  .btn-utama:hover{filter:brightness(1.08);}
+  .btn-kembali{background:transparent;color:var(--teks-muted);border:1px solid rgba(255,255,255,0.12);}
+  .btn-kembali:hover{color:var(--teks);border-color:rgba(255,255,255,0.24);}
+  .btn-emas{background:linear-gradient(135deg,#F2DA9B,var(--emas));color:#241900;box-shadow:0 12px 26px -12px rgba(232,196,104,0.6);}
+  .btn-emas:hover{filter:brightness(1.06);}
+  button:disabled{opacity:.4;cursor:not-allowed;transform:none;filter:none;}
+  .nav .btn-utama, .nav .btn-emas{margin-left:auto;}
+
+  /* ---------- ringkasan (konfirmasi) ---------- */
+  .ringkasan{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:6px 16px;margin-bottom:18px;}
+  .ringkasan .baris{display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,0.07);font-size:13.5px;}
+  .ringkasan .baris:last-child{border-bottom:none;}
+  .ringkasan .baris span:first-child{color:var(--teks-muted);}
+  .ringkasan .baris span:last-child{font-weight:600;text-align:right;color:var(--teks);}
+
+  .pernyataan{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;color:var(--teks-muted);margin-bottom:20px;line-height:1.5;}
+  .pernyataan input{margin-top:3px;width:17px;height:17px;flex-shrink:0;accent-color:var(--emerald);}
+
+  /* ---------- status: memproses / hasil ---------- */
+  .status{display:none;padding:44px 26px 40px;text-align:center;}
+  .status.aktif{display:block;}
+
+  .spinner{width:38px;height:38px;margin:0 auto 20px;border:3px solid rgba(255,255,255,0.12);border-top-color:var(--emerald);border-radius:50%;animation:putar .85s linear infinite;}
+  @keyframes putar{to{transform:rotate(360deg);}}
+  .status .pesan-proses{color:var(--teks-muted);font-size:14px;}
+
+  .ikon-berhasil{
+    width:64px;height:64px;margin:0 auto 20px;border-radius:50%;
+    background:rgba(23,227,160,0.1);border:1.5px solid rgba(23,227,160,0.35);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .ikon-berhasil svg{width:30px;height:30px;}
+  @media (prefers-reduced-motion:reduce){
+    .step,.status,.card{animation:none;}
+    body{animation:none;}
+    .card::before{animation:none;}
+  }
+
+  .hasil h2{font-family:var(--font-display);font-size:21px;color:var(--teks);margin:0 0 6px;}
+  .hasil .sub{color:var(--teks-muted);font-size:13.5px;margin:0 0 22px;}
+  .pemberitahuan-konfirmasi{
+    color:var(--teks);font-size:14px;line-height:1.6;font-weight:600;
+    background:rgba(232,196,104,0.08);border:1px solid rgba(232,196,104,0.25);
+    padding:14px 18px;border-radius:11px;margin:0 0 26px;
+  }
+  .aksi-hasil{display:flex;flex-direction:column;gap:10px;}
+  .aksi-hasil button{text-decoration:none;display:inline-block;}
+
+  .gagal .ikon{width:52px;height:52px;margin:0 auto 18px;border-radius:50%;background:var(--merah-bg);border:1px solid rgba(255,138,138,0.3);display:flex;align-items:center;justify-content:center;}
+  .gagal .ikon svg{width:24px;height:24px;}
+  .gagal h2{font-family:var(--font-display);font-size:19px;color:var(--merah);margin:0 0 8px;}
+  .gagal p{color:var(--teks-muted);font-size:13.5px;margin:0 0 22px;line-height:1.5;}
+
+  .peringatan{background:rgba(232,196,104,0.1);border:1px solid rgba(232,196,104,0.32);color:var(--emas);font-size:12.5px;padding:10px 14px;border-radius:10px;margin-bottom:18px;text-align:left;}
+
+  footer{text-align:center;color:var(--teks-muted);opacity:.6;font-size:11.5px;margin-top:28px;}
+
+  /* ---------- bank data (akses petugas) ---------- */
+  .admin-overlay{
+    position:fixed;inset:0;background:rgba(3,10,7,0.82);backdrop-filter:blur(6px);
+    display:none;align-items:center;justify-content:center;z-index:100;padding:20px;
+  }
+  .admin-overlay.aktif{display:flex;}
+  .admin-box{
+    position:relative;width:100%;max-width:600px;max-height:86vh;overflow:auto;
+    background:#0E241C;border:1px solid rgba(232,196,104,0.25);border-radius:16px;
+    padding:30px 26px 26px;box-shadow:0 30px 60px -20px rgba(0,0,0,0.6);
+  }
+  .admin-tutup{
+    position:absolute;top:12px;right:12px;background:transparent;border:none;
+    color:var(--teks-muted);font-size:24px;line-height:1;cursor:pointer;padding:6px 12px;
+  }
+  .admin-tutup:hover{color:var(--teks);}
+  .admin-tahap h3{font-family:var(--font-display);color:var(--emas);margin:0 0 8px;font-size:18px;}
+  .admin-tahap p{color:var(--teks-muted);font-size:13px;margin:0 0 16px;}
+  #adminSandi{
+    width:100%;padding:12px 14px;border-radius:10px;border:1.4px solid rgba(255,255,255,0.12);
+    background:rgba(255,255,255,0.04);color:var(--teks);font-size:16px;margin-bottom:8px;
+    font-family:var(--font-body);
+  }
+  #adminSandi:focus{outline:none;border-color:var(--emerald);}
+  .admin-err{display:block;color:var(--merah);font-size:12px;margin-bottom:14px;min-height:14px;}
+  .admin-jumlah{color:var(--teks-muted);font-size:12px;margin:0 0 12px;}
+
+  #adminCari{
+    width:100%;padding:11px 14px;border-radius:10px;border:1.4px solid rgba(255,255,255,0.12);
+    background:rgba(255,255,255,0.04);color:var(--teks);font-size:15px;margin-bottom:14px;
+    font-family:var(--font-body);
+  }
+  #adminCari:focus{outline:none;border-color:var(--emerald);}
+
+  .admin-daftar{display:flex;flex-direction:column;gap:8px;}
+
+  .admin-bar-pilih{
+    display:none;align-items:center;justify-content:space-between;gap:10px;
+    background:rgba(255,107,107,0.08);border:1px solid rgba(255,107,107,0.28);
+    border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:13px;color:var(--teks);
+  }
+  .admin-bar-pilih.aktif{display:flex;}
+  .admin-bar-pilih .aksi-bar{display:flex;gap:8px;}
+  .admin-bar-pilih button{
+    font-family:var(--font-body);font-weight:700;font-size:12.5px;border:none;border-radius:8px;
+    padding:8px 12px;cursor:pointer;
+  }
+  .admin-btn-hapus-terpilih{background:var(--merah);color:#2a0808;}
+  .admin-btn-batal-pilih{background:transparent;color:var(--teks-muted);border:1px solid rgba(255,255,255,0.14) !important;}
+
+  .admin-item .cek-pilih{
+    width:18px;height:18px;flex-shrink:0;accent-color:var(--merah);cursor:pointer;
+  }
+  .admin-item{
+    display:flex;justify-content:space-between;align-items:center;gap:10px;
+    padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.08);
+    background:rgba(255,255,255,0.02);cursor:pointer;text-align:left;
+  }
+  .admin-item:hover{background:rgba(23,227,160,0.08);border-color:rgba(23,227,160,0.25);}
+  .admin-item .nama{font-weight:600;color:var(--teks);font-size:14.5px;}
+  .admin-item .sub{color:var(--teks-muted);font-size:12px;margin-top:2px;}
+  .admin-item .kanan{display:flex;align-items:center;gap:6px;flex-shrink:0;}
+  .admin-item .panah{color:var(--teks-muted);}
+  .admin-item .hapus-cepat{
+    width:30px;height:30px;padding:0;min-height:0;border-radius:8px;border:1px solid rgba(255,107,107,0.3);
+    background:rgba(255,107,107,0.08);color:var(--merah);display:flex;align-items:center;justify-content:center;
+    cursor:pointer;flex-shrink:0;
+  }
+  .admin-item .hapus-cepat:hover{background:rgba(255,107,107,0.2);}
+  .admin-item .hapus-cepat svg{width:15px;height:15px;}
+
+  .admin-kosong{color:var(--teks-muted);font-size:13px;text-align:center;padding:20px 0;}
+
+  .admin-btn-kembali{
+    background:transparent;border:1px solid rgba(255,255,255,0.14);color:var(--teks-muted);
+    font-size:13px;font-weight:600;padding:8px 14px;border-radius:8px;cursor:pointer;margin-bottom:16px;
+  }
+  .admin-btn-kembali:hover{color:var(--teks);}
+
+  .admin-resume-grup{margin-bottom:18px;}
+  .admin-resume-grup h4{
+    font-family:var(--font-mono);font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--emas);margin:0 0 10px;
+  }
+  .admin-resume-baris{
+    display:flex;justify-content:space-between;gap:14px;padding:9px 0;
+    border-bottom:1px solid rgba(255,255,255,0.06);font-size:13.5px;
+  }
+  .admin-resume-baris:last-child{border-bottom:none;}
+  .admin-resume-baris span:first-child{color:var(--teks-muted);flex-shrink:0;}
+  .admin-resume-baris span:last-child{color:var(--teks);font-weight:600;text-align:right;}
+
+  .admin-aksi-dokumen{display:flex;flex-direction:column;gap:10px;margin-top:20px;}
+  .admin-aksi-dokumen a,.admin-aksi-dokumen button{
+    text-decoration:none;text-align:center;font-weight:700;font-size:14px;
+    padding:12px 18px;border-radius:10px;border:none;cursor:pointer;font-family:var(--font-body);
+  }
+  .admin-unduh{background:linear-gradient(135deg,#F2DA9B,var(--emas));color:#241900;}
+  .admin-lihat{background:rgba(23,227,160,0.1);color:var(--emerald);border:1px solid rgba(23,227,160,0.3);}
+  .admin-hapus{background:rgba(255,107,107,0.1);color:var(--merah);border:1px solid rgba(255,107,107,0.3);}
+  .admin-hapus:hover{background:rgba(255,107,107,0.18);}
+  .admin-hapus:disabled{opacity:.5;cursor:not-allowed;}
+
+  /* ---------- tablet & desktop ---------- */
+  @media (min-width:760px){
+    .wrap{max-width:640px;}
+  }
+
+  @media (max-width:380px){
+    .langkah .label{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="letterhead">
+    <div class="letterhead-brand">
+    <div class="lambang">
+      <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M32 4 L58 14 V30 C58 45 47 56 32 60 C17 56 6 45 6 30 V14 Z" fill="rgba(23,227,160,0.14)" stroke="#E8C468" stroke-width="2"/>
+        <path d="M32 20 V44 M20 32 H44" stroke="#17E3A0" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+    </div>
+      <div class="letterhead-teks">
+      <div class="eyebrow" id="pembukaAdmin">Poliklinik &middot; Polres Lombok Barat</div>
+      <h1>Surat Keterangan Sehat</h1>
+      </div>
+    </div>
+    <p>Isi data dengan lengkap dan sesuai KTP/identitas resmi. Surat diterbitkan otomatis begitu pengajuan Anda diverifikasi sistem.</p>
+    <div class="garis-hias"></div>
+  </div>
+
+  <div class="card">
+
+    <!-- progres -->
+    <div class="progres" id="progres">
+      <div class="langkah aktif" data-langkah="1">
+        <span class="node"><span class="node-isi">1</span></span>
+        <span class="label">Data Pengajuan</span>
+      </div>
+      <div class="garis"><i></i></div>
+      <div class="langkah" data-langkah="2">
+        <span class="node"><span class="node-isi">2</span></span>
+        <span class="label">Konfirmasi</span>
+      </div>
+    </div>
+
+    <form id="formSuket" novalidate>
+
+      <!-- LANGKAH 1 -->
+      <div class="step aktif" data-step="1">
+        <h2>Data Identitas &amp; Kesehatan</h2>
+        <p class="ket">Sesuai KTP atau identitas resmi lainnya.</p>
+
+        <div class="field" data-field="nama">
+          <label for="nama">Nama Lengkap</label>
+          <input id="nama" type="text" placeholder="cth: SITI RAHAYU" autocomplete="name">
+          <small class="err">Nama wajib diisi.</small>
+        </div>
+
+        <div class="field" data-field="umur">
+          <label for="umur">Umur <span class="opsional">(tahun)</span></label>
+          <input id="umur" type="number" min="0" max="120" placeholder="cth: 34" inputmode="numeric">
+          <small class="err">Isi umur yang valid.</small>
+        </div>
+
+        <div class="field" data-field="jenisKelamin">
+          <label>Jenis Kelamin</label>
+          <div class="dselect" data-placeholder="Pilih jenis kelamin">
+            <button type="button" class="dselect-tombol">
+              <span class="dselect-label placeholder">Pilih jenis kelamin</span>
+              <svg class="dselect-panah" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <ul class="dselect-daftar" role="listbox">
+              <li data-value="Laki-laki">Laki-laki</li>
+              <li data-value="Perempuan">Perempuan</li>
+            </ul>
+          </div>
+          <input type="hidden" id="jenisKelamin">
+          <small class="err">Pilih jenis kelamin.</small>
+        </div>
+
+        <div class="field" data-field="alamat">
+          <label for="alamat">Alamat</label>
+          <textarea id="alamat" placeholder="cth: Dusun Karang Bedil, Gerung, Lombok Barat"></textarea>
+          <small class="err">Alamat wajib diisi.</small>
+        </div>
+
+        <div class="subjudul">Data Kesehatan</div>
+
+        <div class="field" data-field="keperluan">
+          <label for="keperluan">Keperluan</label>
+          <textarea id="keperluan" placeholder="cth: PERSYARATAN MELAMAR KERJA"></textarea>
+          <small class="err">Keperluan wajib diisi.</small>
+        </div>
+
+        <div class="field" data-field="tinggi">
+          <label for="tinggi">Tinggi Badan <span class="opsional">(cm)</span></label>
+          <input id="tinggi" type="number" min="50" max="250" placeholder="cth: 160">
+          <small class="err">Isi tinggi badan yang valid.</small>
+        </div>
+
+        <div class="field" data-field="berat">
+          <label for="berat">Berat Badan <span class="opsional">(kg)</span></label>
+          <input id="berat" type="number" min="20" max="200" placeholder="cth: 55">
+          <small class="err">Isi berat badan yang valid.</small>
+        </div>
+
+        <div class="field" data-field="tekanan">
+          <label for="tekanan">Tekanan Darah</label>
+          <input id="tekanan" class="mono" type="text" placeholder="cth: 120/80 mmHg">
+          <small class="err">Tekanan darah wajib diisi.</small>
+        </div>
+
+        <div class="field" data-field="golongan">
+          <label>Golongan Darah</label>
+          <div class="dselect" data-placeholder="Pilih golongan darah">
+            <button type="button" class="dselect-tombol">
+              <span class="dselect-label placeholder">Pilih golongan darah</span>
+              <svg class="dselect-panah" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <ul class="dselect-daftar" role="listbox">
+              <li data-value="A">A</li>
+              <li data-value="B">B</li>
+              <li data-value="AB">AB</li>
+              <li data-value="O">O</li>
+              <li data-value="B+">B+</li>
+            </ul>
+          </div>
+          <input type="hidden" id="golongan">
+          <small class="err">Pilih golongan darah.</small>
+        </div>
+
+        <div class="field" data-field="butaWarna">
+          <label>Buta Warna</label>
+          <div class="dselect" data-placeholder="Pilih salah satu">
+            <button type="button" class="dselect-tombol">
+              <span class="dselect-label placeholder">Pilih salah satu</span>
+              <svg class="dselect-panah" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <ul class="dselect-daftar" role="listbox">
+              <li data-value="Tidak">Tidak</li>
+              <li data-value="Ya">Ya</li>
+            </ul>
+          </div>
+          <input type="hidden" id="butaWarna">
+          <small class="err">Pilih salah satu.</small>
+        </div>
+
+        <div class="nav">
+          <span></span>
+          <button type="button" class="btn-utama" data-lanjut="2">Lanjut ke Konfirmasi</button>
+        </div>
+      </div>
+
+      <!-- LANGKAH 2 -->
+      <div class="step" data-step="2">
+        <h2>Konfirmasi Data</h2>
+        <p class="ket">Periksa kembali sebelum mengajukan.</p>
+
+        <div class="ringkasan" id="ringkasan"></div>
+
+        <label class="pernyataan">
+          <input type="checkbox" id="pernyataan">
+          Saya menyatakan data yang diisikan di atas benar dan dapat dipertanggungjawabkan.
+        </label>
+
+        <div class="nav">
+          <button type="button" class="btn-kembali" data-kembali="1">Kembali</button>
+          <button type="submit" class="btn-emas" id="btnAjukan" disabled>Ajukan Surat</button>
+        </div>
+      </div>
+    </form>
+
+    <!-- STATUS: MEMPROSES -->
+    <div class="status" id="statusProses">
+      <div class="spinner"></div>
+      <p class="pesan-proses">Memproses pengajuan &amp; menerbitkan surat…</p>
+    </div>
+
+    <!-- STATUS: BERHASIL -->
+    <div class="status hasil" id="statusBerhasil">
+      <div class="ikon-berhasil">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#17E3A0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h2>Surat Berhasil Diterbitkan</h2>
+      <p class="sub" id="namaBerhasil"></p>
+      <div id="peringatanBerhasil"></div>
+      <p class="pemberitahuan-konfirmasi">Silahkan Konfirmasi Kepada Petugas setelah mengisi Link ini<br>Terimakasih</p>
+      <div class="aksi-hasil">
+        <button type="button" class="btn-emas" id="btnAjukanLagi">Ajukan Surat Lain</button>
+      </div>
+    </div>
+
+    <!-- STATUS: GAGAL -->
+    <div class="status gagal" id="statusGagal">
+      <div class="ikon">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 8v5M12 16h.01" stroke="#FF8A8A" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="#FF8A8A" stroke-width="1.6"/></svg>
+      </div>
+      <h2>Pengajuan Tidak Diproses</h2>
+      <p id="pesanGagal">Terjadi kesalahan.</p>
+      <button type="button" class="btn-utama" id="btnCobaLagi">Coba Lagi</button>
+    </div>
+
+  </div>
+
+</div>
+<footer>Poliklinik Polres Lombok Barat &middot; Layanan Surat Keterangan Sehat</footer>
+
+<div class="admin-overlay" id="adminOverlay">
+  <div class="admin-box">
+    <button type="button" class="admin-tutup" id="adminTutup" aria-label="Tutup">&times;</button>
+
+    <div class="admin-tahap" id="adminTahapSandi">
+      <h3>Bank Data — Akses Petugas</h3>
+      <p>Masukkan kata sandi untuk melihat seluruh data pengajuan yang sudah tercatat.</p>
+      <input type="password" id="adminSandi" placeholder="Kata sandi" autocomplete="off">
+      <small class="admin-err" id="adminSandiErr"></small>
+      <button type="button" class="btn-utama" id="adminMasuk">Masuk</button>
+    </div>
+
+    <div class="admin-tahap" id="adminTahapDaftar" style="display:none;">
+      <h3>Bank Data Pengajuan</h3>
+      <p class="admin-jumlah" id="adminJumlah"></p>
+      <input type="text" id="adminCari" placeholder="Cari nama...">
+      <div class="admin-bar-pilih" id="adminBarPilih">
+        <span id="adminJumlahTerpilih">0 dipilih</span>
+        <div class="aksi-bar">
+          <button type="button" class="admin-btn-batal-pilih" id="adminBatalPilih">Batal</button>
+          <button type="button" class="admin-btn-hapus-terpilih" id="adminHapusTerpilih">Hapus Terpilih</button>
+        </div>
+      </div>
+      <div class="admin-daftar" id="adminDaftar"></div>
+    </div>
+
+    <div class="admin-tahap" id="adminTahapResume" style="display:none;">
+      <button type="button" class="admin-btn-kembali" id="adminKembaliDaftar">&larr; Kembali ke daftar</button>
+      <h3 id="adminResumeNama">Resume Pengajuan</h3>
+      <div id="adminResumeIsi"></div>
+      <div class="admin-aksi-dokumen" id="adminAksiDokumen"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  // ============ KONFIGURASI ============
+  // Ganti dengan URL Web App hasil deploy Google Apps Script (Code.gs) —
+  // lihat "Kode_AppsScript_SuketSehat_LombokBarat.gs", langkah 5-6.
+  const API_URL = 'GANTI_DENGAN_URL_WEB_APP_HASIL_DEPLOY_ANDA';
+  // ======================================
+
+  const form = document.getElementById('formSuket');
+  const langkahEls = document.querySelectorAll('.progres .langkah');
+  const stepEls = document.querySelectorAll('.step');
+  let langkahAktif = 1;
+
+  const bidang = {
+    nama:document.getElementById('nama'),
+    umur:document.getElementById('umur'),
+    jenisKelamin:document.getElementById('jenisKelamin'),
+    alamat:document.getElementById('alamat'),
+    keperluan:document.getElementById('keperluan'),
+    tinggi:document.getElementById('tinggi'),
+    berat:document.getElementById('berat'),
+    tekanan:document.getElementById('tekanan'),
+    golongan:document.getElementById('golongan'),
+    butaWarna:document.getElementById('butaWarna')
+  };
+
+  function tampilkanLangkah(n){
+    langkahAktif = n;
+    stepEls.forEach(function(el){ el.classList.toggle('aktif', Number(el.dataset.step) === n); });
+    langkahEls.forEach(function(el){
+      const num = Number(el.dataset.langkah);
+      el.classList.toggle('aktif', num === n);
+      el.classList.toggle('selesai', num < n);
+    });
+    if(n === 2) renderRingkasan();
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function validasiField(key){
+    const el = bidang[key];
+    const wrapper = el.closest('.field');
+    let valid = el.value.trim() !== '';
+    if(key === 'tinggi' || key === 'berat'){
+      valid = valid && Number(el.value) > 0;
+    }
+    if(key === 'umur'){
+      valid = valid && Number(el.value) > 0 && Number(el.value) <= 120;
+    }
+    wrapper.classList.toggle('invalid', !valid);
+    return valid;
+  }
+
+  function validasiLangkah(n){
+    const kunciPerLangkah = {
+      1:['nama','umur','jenisKelamin','alamat','keperluan','tinggi','berat','tekanan','golongan','butaWarna']
+    };
+    const kunci = kunciPerLangkah[n] || [];
+    let semuaValid = true;
+    kunci.forEach(function(k){ if(!validasiField(k)) semuaValid = false; });
+    return semuaValid;
+  }
+
+  document.querySelectorAll('[data-lanjut]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      const dari = langkahAktif;
+      if(validasiLangkah(dari)){
+        tampilkanLangkah(Number(btn.dataset.lanjut));
+      }
+    });
+  });
+  document.querySelectorAll('[data-kembali]').forEach(function(btn){
+    btn.addEventListener('click', function(){ tampilkanLangkah(Number(btn.dataset.kembali)); });
+  });
+
+  function renderRingkasan(){
+    const label = {
+      nama:'Nama', umur:'Umur', jenisKelamin:'Jenis Kelamin', alamat:'Alamat',
+      keperluan:'Keperluan', tinggi:'Tinggi Badan', berat:'Berat Badan', tekanan:'Tekanan Darah',
+      golongan:'Golongan Darah', butaWarna:'Buta Warna'
+    };
+    const satuan = { tinggi:' cm', berat:' kg', umur:' tahun' };
+    const cont = document.getElementById('ringkasan');
+    cont.innerHTML = Object.keys(label).map(function(k){
+      const v = bidang[k].value.trim() + (satuan[k]||'');
+      return '<div class="baris"><span>'+label[k]+'</span><span>'+ (v || '—') +'</span></div>';
+    }).join('');
+  }
+
+  const pernyataan = document.getElementById('pernyataan');
+  const btnAjukan = document.getElementById('btnAjukan');
+  pernyataan.addEventListener('change', function(){ btnAjukan.disabled = !pernyataan.checked; });
+
+  // ---------- dropdown kustom (Jenis Kelamin, Golongan Darah, Buta Warna) ----------
+  function inisialisasiDselect(){
+    document.querySelectorAll('.dselect').forEach(function(wrap){
+      const tombol = wrap.querySelector('.dselect-tombol');
+      const label = wrap.querySelector('.dselect-label');
+      const daftar = wrap.querySelector('.dselect-daftar');
+      const hiddenInput = wrap.parentElement.querySelector('input[type="hidden"]');
+
+      tombol.addEventListener('click', function(e){
+        e.stopPropagation();
+        document.querySelectorAll('.dselect.terbuka').forEach(function(w){ if(w !== wrap) w.classList.remove('terbuka'); });
+        wrap.classList.toggle('terbuka');
+      });
+
+      daftar.querySelectorAll('li').forEach(function(li){
+        li.addEventListener('click', function(){
+          daftar.querySelectorAll('li').forEach(function(o){ o.classList.remove('dipilih'); });
+          li.classList.add('dipilih');
+          label.textContent = li.textContent;
+          label.classList.remove('placeholder');
+          if(hiddenInput){ hiddenInput.value = li.dataset.value; }
+          wrap.classList.remove('terbuka');
+          const fieldWrap = wrap.closest('.field');
+          if(fieldWrap) fieldWrap.classList.remove('invalid');
+        });
+      });
+    });
+
+    document.addEventListener('click', function(){
+      document.querySelectorAll('.dselect.terbuka').forEach(function(w){ w.classList.remove('terbuka'); });
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape'){
+        document.querySelectorAll('.dselect.terbuka').forEach(function(w){ w.classList.remove('terbuka'); });
+      }
+    });
+  }
+  inisialisasiDselect();
+
+  function resetSemuaDselect(){
+    document.querySelectorAll('.dselect').forEach(function(wrap){
+      const label = wrap.querySelector('.dselect-label');
+      const daftar = wrap.querySelector('.dselect-daftar');
+      label.textContent = wrap.dataset.placeholder;
+      label.classList.add('placeholder');
+      daftar.querySelectorAll('li').forEach(function(li){ li.classList.remove('dipilih'); });
+      wrap.classList.remove('terbuka');
+    });
+  }
+
+  const statusProses = document.getElementById('statusProses');
+  const statusBerhasil = document.getElementById('statusBerhasil');
+  const statusGagal = document.getElementById('statusGagal');
+  const progresEl = document.getElementById('progres');
+
+  function tampilkanStatus(nama){
+    form.style.display = 'none';
+    progresEl.style.display = 'none';
+    [statusProses, statusBerhasil, statusGagal].forEach(function(el){ el.classList.remove('aktif'); });
+    document.getElementById(nama).classList.add('aktif');
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if(!validasiLangkah(1)){ return; }
+
+    tampilkanStatus('statusProses');
+
+    const payload = {
+      nama:bidang.nama.value.trim(),
+      umur:bidang.umur.value.trim(),
+      jenisKelamin:bidang.jenisKelamin.value.trim(),
+      alamat:bidang.alamat.value.trim(),
+      keperluan:bidang.keperluan.value.trim(),
+      tinggi:bidang.tinggi.value.trim(),
+      berat:bidang.berat.value.trim(),
+      tekanan:bidang.tekanan.value.trim(),
+      golongan:bidang.golongan.value.trim(),
+      butaWarna:bidang.butaWarna.value.trim()
+    };
+
+    fetch(API_URL, {
+      method:'POST',
+      // text/plain menghindari CORS preflight yang tidak didukung Apps Script
+      headers:{ 'Content-Type':'text/plain;charset=utf-8' },
+      body:JSON.stringify(payload)
+    })
+    .then(function(res){ return res.json(); })
+    .then(function(hasil){
+      if(hasil.success){
+        document.getElementById('namaBerhasil').textContent = hasil.nama + ' — ' + hasil.tanggal;
+
+        const peringatanEl = document.getElementById('peringatanBerhasil');
+        peringatanEl.innerHTML = hasil.warning ? '<div class="peringatan">'+hasil.warning+'</div>' : '';
+
+        tampilkanStatus('statusBerhasil');
+      } else {
+        document.getElementById('pesanGagal').textContent = hasil.message || 'Pengajuan gagal diproses, silakan coba lagi.';
+        tampilkanStatus('statusGagal');
+      }
+    })
+    .catch(function(err){
+      document.getElementById('pesanGagal').textContent = 'Pengajuan tidak dapat dikonfirmasi. Jika Anda baru saja mengirim data yang sama, kemungkinan sudah tercatat — periksa dulu sebelum mencoba lagi. Jika bukan, periksa koneksi internet Anda.';
+      tampilkanStatus('statusGagal');
+    });
+  });
+
+  document.getElementById('btnAjukanLagi').addEventListener('click', function(){
+    form.reset();
+    resetSemuaDselect();
+    document.querySelectorAll('.field').forEach(function(el){ el.classList.remove('invalid'); });
+    btnAjukan.disabled = true;
+    form.style.display = '';
+    progresEl.style.display = '';
+    statusBerhasil.classList.remove('aktif');
+    tampilkanLangkah(1);
+  });
+
+  document.getElementById('btnCobaLagi').addEventListener('click', function(){
+    form.style.display = '';
+    progresEl.style.display = '';
+    statusGagal.classList.remove('aktif');
+    tampilkanLangkah(2);
+  });
+
+  // ---------- bank data (akses petugas, dibuka lewat teks "Poliklinik · Polres Lombok Barat") ----------
+  const adminOverlay = document.getElementById('adminOverlay');
+  const adminTahapSandi = document.getElementById('adminTahapSandi');
+  const adminTahapDaftar = document.getElementById('adminTahapDaftar');
+  const adminTahapResume = document.getElementById('adminTahapResume');
+  const adminSandi = document.getElementById('adminSandi');
+  const adminSandiErr = document.getElementById('adminSandiErr');
+  const adminMasuk = document.getElementById('adminMasuk');
+  const adminCari = document.getElementById('adminCari');
+  const adminDaftar = document.getElementById('adminDaftar');
+
+  let dataBankHeaders = [];
+  let dataBankRows = [];
+  let dataBankRowNumbers = [];
+  let adminSandiTersimpan = '';
+
+  function adminTampilkanTahap(nama){
+    [adminTahapSandi, adminTahapDaftar, adminTahapResume].forEach(function(el){ el.style.display = 'none'; });
+    document.getElementById(nama).style.display = '';
+  }
+
+  document.getElementById('pembukaAdmin').addEventListener('click', function(){
+    adminOverlay.classList.add('aktif');
+    adminTampilkanTahap('adminTahapSandi');
+    adminSandi.value = '';
+    adminSandiErr.textContent = '';
+    setTimeout(function(){ adminSandi.focus(); }, 50);
+  });
+
+  document.getElementById('adminTutup').addEventListener('click', function(){
+    adminOverlay.classList.remove('aktif');
+  });
+  adminOverlay.addEventListener('click', function(e){
+    if(e.target === adminOverlay) adminOverlay.classList.remove('aktif');
+  });
+
+  function adminMasukProses(){
+    const sandi = adminSandi.value.trim();
+    if(!sandi){ adminSandiErr.textContent = 'Isi kata sandi.'; return; }
+    adminSandiErr.textContent = 'Memeriksa…';
+    adminMasuk.disabled = true;
+
+    fetch(API_URL, {
+      method:'POST',
+      headers:{ 'Content-Type':'text/plain;charset=utf-8' },
+      body:JSON.stringify({ action:'lihatData', password:sandi })
+    })
+    .then(function(res){ return res.json(); })
+    .then(function(hasil){
+      adminMasuk.disabled = false;
+      if(hasil.success){
+        dataBankHeaders = hasil.headers;
+        dataBankRows = hasil.rows;
+        dataBankRowNumbers = hasil.rowNumbers || [];
+        adminTerpilih.clear();
+        adminSandiTersimpan = sandi;
+        document.getElementById('adminJumlah').textContent = dataBankRows.length + ' data tercatat';
+        adminCari.value = '';
+        renderDaftarAdmin('');
+        adminTampilkanTahap('adminTahapDaftar');
+      } else {
+        adminSandiErr.textContent = hasil.message || 'Kata sandi salah.';
+      }
+    })
+    .catch(function(){
+      adminMasuk.disabled = false;
+      adminSandiErr.textContent = 'Tidak dapat terhubung ke server.';
+    });
+  }
+  adminMasuk.addEventListener('click', adminMasukProses);
+  adminSandi.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ adminMasukProses(); } });
+
+  function idxKolom(nama){ return dataBankHeaders.indexOf(nama); }
+
+  let adminTerpilih = new Set();
+
+  function renderDaftarAdmin(kataKunci){
+    const idxNama = idxKolom('Nama');
+    const idxUmur = idxKolom('Umur');
+    const idxJenisKelamin = idxKolom('Jenis Kelamin');
+    const idxTanggal = idxKolom('Tanggal Pemeriksaan');
+    const kunci = (kataKunci || '').trim().toUpperCase();
+
+    const cocok = [];
+    dataBankRows.forEach(function(r, i){
+      const nama = (r[idxNama] || '').toString();
+      if(!kunci || nama.toUpperCase().indexOf(kunci) !== -1){
+        cocok.push({ r: r, i: i });
+      }
+    });
+
+    if(cocok.length === 0){
+      adminDaftar.innerHTML = '<p class="admin-kosong">Tidak ada nama yang cocok.</p>';
+      perbaruiBarPilih();
+      return;
+    }
+
+    adminDaftar.innerHTML = cocok.map(function(item){
+      const r = item.r;
+      const umurTeks = r[idxUmur] ? r[idxUmur] + ' th' : '';
+      const sub = [r[idxJenisKelamin], umurTeks, r[idxTanggal]].filter(Boolean).join(' · ');
+      const dicentang = adminTerpilih.has(item.i) ? 'checked' : '';
+      return '<div class="admin-item" data-index="'+item.i+'">' +
+        '<input type="checkbox" class="cek-pilih" data-index="'+item.i+'" '+dicentang+'>' +
+        '<div><div class="nama">'+(r[idxNama] || '-')+'</div><div class="sub">'+sub+'</div></div>' +
+        '<div class="kanan">' +
+          '<button type="button" class="hapus-cepat" data-index="'+item.i+'" aria-label="Hapus" title="Hapus">' +
+            '<svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+          '</button>' +
+          '<div class="panah">&rsaquo;</div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+
+    adminDaftar.querySelectorAll('.admin-item').forEach(function(el){
+      el.addEventListener('click', function(){
+        tampilkanResumeAdmin(Number(el.dataset.index));
+      });
+    });
+
+    adminDaftar.querySelectorAll('.hapus-cepat').forEach(function(btn){
+      btn.addEventListener('click', function(e){
+        e.stopPropagation();
+        const idx = Number(btn.dataset.index);
+        const r = dataBankRows[idx];
+        const idxNama = idxKolom('Nama');
+        hapusDataAdmin(idx, (r && r[idxNama]) || 'data ini');
+      });
+    });
+
+    adminDaftar.querySelectorAll('.cek-pilih').forEach(function(cek){
+      cek.addEventListener('click', function(e){ e.stopPropagation(); });
+      cek.addEventListener('change', function(){
+        const idx = Number(cek.dataset.index);
+        if(cek.checked){ adminTerpilih.add(idx); } else { adminTerpilih.delete(idx); }
+        perbaruiBarPilih();
+      });
+    });
+
+    perbaruiBarPilih();
+  }
+
+  function perbaruiBarPilih(){
+    const bar = document.getElementById('adminBarPilih');
+    const jumlah = adminTerpilih.size;
+    document.getElementById('adminJumlahTerpilih').textContent = jumlah + ' dipilih';
+    bar.classList.toggle('aktif', jumlah > 0);
+  }
+
+  document.getElementById('adminBatalPilih').addEventListener('click', function(){
+    adminTerpilih.clear();
+    renderDaftarAdmin(adminCari.value);
+  });
+
+  document.getElementById('adminHapusTerpilih').addEventListener('click', function(){
+    if(adminTerpilih.size === 0) return;
+    const yakin = confirm('Yakin ingin menghapus '+adminTerpilih.size+' data terpilih?\n\nSemua baris di Spreadsheet akan dihapus dan dokumen Google Doc terkait dipindahkan ke Sampah Drive. Tindakan ini tidak bisa dibatalkan dari sini.');
+    if(!yakin) return;
+
+    const daftarIndex = Array.from(adminTerpilih);
+    const nomorBarisArray = daftarIndex.map(function(i){ return dataBankRowNumbers[i]; });
+    const tombol = document.getElementById('adminHapusTerpilih');
+    tombol.disabled = true;
+    tombol.textContent = 'Menghapus…';
+
+    fetch(API_URL, {
+      method:'POST',
+      headers:{ 'Content-Type':'text/plain;charset=utf-8' },
+      body:JSON.stringify({ action:'hapusDataBanyak', password:adminSandiTersimpan, nomorBarisArray:nomorBarisArray })
+    })
+    .then(function(res){ return res.json(); })
+    .then(function(hasil){
+      tombol.disabled = false;
+      tombol.textContent = 'Hapus Terpilih';
+      if(hasil.success){
+        daftarIndex.sort(function(a,b){ return b - a; }).forEach(function(i){
+          dataBankRows.splice(i, 1);
+          dataBankRowNumbers.splice(i, 1);
+        });
+        adminTerpilih.clear();
+        document.getElementById('adminJumlah').textContent = dataBankRows.length + ' data tercatat';
+        renderDaftarAdmin(adminCari.value);
+      } else {
+        alert(hasil.message || 'Gagal menghapus data terpilih.');
+      }
+    })
+    .catch(function(){
+      tombol.disabled = false;
+      tombol.textContent = 'Hapus Terpilih';
+      alert('Tidak dapat terhubung ke server.');
+    });
+  });
+
+  adminCari.addEventListener('input', function(){ renderDaftarAdmin(adminCari.value); });
+
+  document.getElementById('adminKembaliDaftar').addEventListener('click', function(){
+    adminTampilkanTahap('adminTahapDaftar');
+  });
+
+  const RESUME_GRUP = [
+    { judul: 'Identitas', field: ['Nama', 'Umur', 'Jenis Kelamin', 'Alamat'] },
+    { judul: 'Kesehatan & Keperluan', field: ['Keperluan', 'Tinggi Badan', 'Berat Badan', 'Tekanan Darah', 'Golongan Darah', 'Buta Warna'] },
+    { judul: 'Administrasi', field: ['Hasil Nomor', 'Tanggal Pemeriksaan', 'Timestamp'] }
+  ];
+  const SATUAN_FIELD = { 'Tinggi Badan': ' cm', 'Berat Badan': ' kg', 'Umur': ' tahun' };
+  let resumeIndexAktif = -1;
+
+  function tampilkanResumeAdmin(index){
+    const r = dataBankRows[index];
+    if(!r) return;
+    resumeIndexAktif = index;
+
+    const idxNama = idxKolom('Nama');
+    document.getElementById('adminResumeNama').textContent = r[idxNama] || 'Resume Pengajuan';
+
+    const isi = RESUME_GRUP.map(function(grup){
+      const baris = grup.field.map(function(nama){
+        const idx = idxKolom(nama);
+        if(idx === -1) return '';
+        const nilai = (r[idx] || '—') + (SATUAN_FIELD[nama] && r[idx] ? SATUAN_FIELD[nama] : '');
+        return '<div class="admin-resume-baris"><span>'+nama+'</span><span>'+nilai+'</span></div>';
+      }).join('');
+      return '<div class="admin-resume-grup"><h4>'+grup.judul+'</h4>'+baris+'</div>';
+    }).join('');
+    document.getElementById('adminResumeIsi').innerHTML = isi;
+
+    const idxDokumen = idxKolom('Link Dokumen');
+    const docUrl = idxDokumen !== -1 ? r[idxDokumen] : '';
+    const aksiEl = document.getElementById('adminAksiDokumen');
+    let htmlAksi = '';
+    if(docUrl){
+      const cocokId = docUrl.match(/\/d\/([a-zA-Z0-9_-]+)/);
+      const docId = cocokId ? cocokId[1] : '';
+      const unduhUrl = docId ? 'https://docs.google.com/document/d/'+docId+'/export?format=docx' : docUrl;
+      htmlAksi +=
+        '<a href="'+unduhUrl+'" class="admin-unduh">Unduh Word (.docx)</a>' +
+        '<a href="'+docUrl+'" target="_blank" rel="noopener" class="admin-lihat">Buka di Google Docs</a>';
+    } else {
+      htmlAksi += '<p class="admin-kosong">Dokumen tidak tersedia untuk data ini.</p>';
+    }
+    htmlAksi += '<button type="button" class="admin-hapus" id="adminBtnHapus">Hapus Data Ini</button>';
+    aksiEl.innerHTML = htmlAksi;
+
+    document.getElementById('adminBtnHapus').addEventListener('click', function(){
+      hapusDataAdmin(index, r[idxNama] || 'data ini');
+    });
+
+    adminTampilkanTahap('adminTahapResume');
+  }
+
+  function hapusDataAdmin(index, nama){
+    const yakin = confirm('Yakin ingin menghapus data "'+nama+'"?\n\nBaris di Spreadsheet akan dihapus dan dokumen Google Doc-nya dipindahkan ke Sampah Drive. Tindakan ini tidak bisa dibatalkan dari sini.');
+    if(!yakin) return;
+
+    const nomorBaris = dataBankRowNumbers[index];
+    const tombol = document.getElementById('adminBtnHapus');
+    if(tombol){ tombol.disabled = true; tombol.textContent = 'Menghapus…'; }
+
+    fetch(API_URL, {
+      method:'POST',
+      headers:{ 'Content-Type':'text/plain;charset=utf-8' },
+      body:JSON.stringify({ action:'hapusData', password:adminSandiTersimpan, nomorBaris:nomorBaris })
+    })
+    .then(function(res){ return res.json(); })
+    .then(function(hasil){
+      if(hasil.success){
+        dataBankRows.splice(index, 1);
+        dataBankRowNumbers.splice(index, 1);
+        adminTerpilih.clear();
+        document.getElementById('adminJumlah').textContent = dataBankRows.length + ' data tercatat';
+        renderDaftarAdmin(adminCari.value);
+        adminTampilkanTahap('adminTahapDaftar');
+      } else {
+        alert(hasil.message || 'Gagal menghapus data.');
+        if(tombol){ tombol.disabled = false; tombol.textContent = 'Hapus Data Ini'; }
+      }
+    })
+    .catch(function(){
+      alert('Tidak dapat terhubung ke server.');
+      if(tombol){ tombol.disabled = false; tombol.textContent = 'Hapus Data Ini'; }
+    });
+  }
+
+})();
+</script>
+</body>
+</html>
