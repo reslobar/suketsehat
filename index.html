@@ -449,13 +449,13 @@
 
         <div class="field" data-field="nama">
           <label for="nama">Nama Lengkap</label>
-          <input id="nama" type="text" placeholder="cth: SITI RAHAYU" autocomplete="name">
+          <input id="nama" type="text" placeholder="cth: I Wayan Aditya Sukarna" autocomplete="name">
           <small class="err">Nama wajib diisi.</small>
         </div>
 
         <div class="field" data-field="umur">
           <label for="umur">Umur <span class="opsional">(tahun)</span></label>
-          <input id="umur" type="number" min="0" max="120" placeholder="cth: 34" inputmode="numeric">
+          <input id="umur" type="number" min="0" max="120" placeholder="cth: 26" inputmode="numeric">
           <small class="err">Isi umur yang valid.</small>
         </div>
 
@@ -491,13 +491,13 @@
 
         <div class="field" data-field="tinggi">
           <label for="tinggi">Tinggi Badan <span class="opsional">(cm)</span></label>
-          <input id="tinggi" type="number" min="50" max="250" placeholder="cth: 160">
+          <input id="tinggi" type="number" min="50" max="250" placeholder="cth: 170">
           <small class="err">Isi tinggi badan yang valid.</small>
         </div>
 
         <div class="field" data-field="berat">
           <label for="berat">Berat Badan <span class="opsional">(kg)</span></label>
-          <input id="berat" type="number" min="20" max="200" placeholder="cth: 55">
+          <input id="berat" type="number" min="20" max="200" placeholder="cth: 74">
           <small class="err">Isi berat badan yang valid.</small>
         </div>
 
@@ -642,7 +642,7 @@
   // ============ KONFIGURASI ============
   // Ganti dengan URL Web App hasil deploy Google Apps Script (Code.gs) —
   // lihat "Kode_AppsScript_SuketSehat_LombokBarat.gs", langkah 5-6.
-  const API_URL = 'https://script.google.com/macros/s/AKfycbx2RaVNqyU4kcMxQkPzYZ7V_n8U0R8e4rERnMnbGBlncCCh611WGtLg-PnBnIJCQQUj3A/exec';
+  const API_URL = 'GANTI_DENGAN_URL_WEB_APP_HASIL_DEPLOY_ANDA';
   // ======================================
 
   const form = document.getElementById('formSuket');
@@ -662,6 +662,19 @@
     golongan:document.getElementById('golongan'),
     butaWarna:document.getElementById('butaWarna')
   };
+
+  // Auto-format Tekanan Darah: petugas cukup ketik angka saja (mis.
+  // "12080"), garis miring "/" otomatis disisipkan setelah 3 digit
+  // pertama (sistolik) -> "120/80". Kalau sudah ada "/" atau huruf
+  // (mis. mengetik "mmHg" sendiri), biarkan apa adanya, tidak dipaksa.
+  bidang.tekanan.addEventListener('input', function(){
+    const hanyaAngka = /^[0-9]*$/.test(this.value);
+    if(!hanyaAngka) return; // ada karakter lain (mis. "/" atau huruf) -> jangan diutak-atik
+    const digit = this.value.slice(0, 6); // maksimal 6 digit (3 sistolik + 3 diastolik)
+    if(digit.length > 3){
+      this.value = digit.slice(0, 3) + '/' + digit.slice(3);
+    }
+  });
 
   function tampilkanLangkah(n){
     langkahAktif = n;
@@ -1087,9 +1100,9 @@
     if(docUrl){
       const cocokId = docUrl.match(/\/d\/([a-zA-Z0-9_-]+)/);
       const docId = cocokId ? cocokId[1] : '';
-      const unduhUrl = docId ? 'https://docs.google.com/document/d/'+docId+'/export?format=docx' : docUrl;
+      const unduhUrl = docId ? 'https://docs.google.com/document/d/'+docId+'/export?format=pdf' : docUrl;
       htmlAksi +=
-        '<a href="'+unduhUrl+'" class="admin-unduh">Unduh Word (.docx)</a>' +
+        '<a href="'+unduhUrl+'" class="admin-unduh">Unduh PDF</a>' +
         '<a href="'+docUrl+'" target="_blank" rel="noopener" class="admin-lihat">Buka di Google Docs</a>';
     } else {
       htmlAksi += '<p class="admin-kosong">Dokumen tidak tersedia untuk data ini.</p>';
