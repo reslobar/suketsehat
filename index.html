@@ -163,6 +163,21 @@
   .step h2{font-family:var(--font-display);font-size:19px;font-weight:600;margin:0 0 4px;color:var(--teks);}
   .step .ket{font-size:13px;color:var(--teks-muted);margin:0 0 20px;}
 
+  .jenis-surat-toggle{
+    display:flex;gap:6px;padding:5px;margin-bottom:22px;
+    background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:13px;
+  }
+  .jenis-surat-btn{
+    flex:1;padding:11px 10px;border-radius:9px;border:none;background:transparent;
+    color:var(--teks-muted);font-family:var(--font-body);font-weight:700;font-size:13.5px;
+    cursor:pointer;transition:all .18s;text-align:center;
+  }
+  .jenis-surat-btn:hover{color:var(--teks);}
+  .jenis-surat-btn.aktif{
+    background:linear-gradient(135deg,var(--emerald),#0FBF86);color:#052018;
+    box-shadow:0 8px 18px -8px rgba(23,227,160,0.55);
+  }
+
   .subjudul{
     display:flex;align-items:center;gap:10px;
     margin:26px 0 16px;
@@ -430,6 +445,13 @@
     <form id="formSuket" novalidate>
 
       <div class="step aktif" data-step="1">
+
+        <div class="jenis-surat-toggle" id="jenisSuratToggle">
+          <button type="button" class="jenis-surat-btn aktif" data-jenis="sehat">Surat Keterangan Sehat</button>
+          <button type="button" class="jenis-surat-btn" data-jenis="sakit">Surat Keterangan Sakit</button>
+        </div>
+        <input type="hidden" id="jenisSurat" value="sehat">
+
         <h2>Data Identitas &amp; Kesehatan</h2>
         <p class="ket">Sesuai KTP atau identitas resmi lainnya.</p>
 
@@ -461,20 +483,27 @@
           <small class="err">Pilih jenis kelamin.</small>
         </div>
 
+        <div class="field hanya-sakit" data-field="pekerjaan" style="display:none;">
+          <label for="pekerjaan">Pekerjaan</label>
+          <input id="pekerjaan" type="text" placeholder="cth: Wiraswasta">
+          <small class="err">Pekerjaan wajib diisi.</small>
+        </div>
+
         <div class="field" data-field="alamat">
           <label for="alamat">Alamat</label>
           <textarea id="alamat" placeholder="cth: Dusun Karang Bedil, Gerung, Lombok Barat"></textarea>
           <small class="err">Alamat wajib diisi.</small>
         </div>
 
-        <div class="subjudul">Data Kesehatan</div>
+        <div class="subjudul" id="subjudulKesehatan">Data Kesehatan</div>
 
         <div class="field" data-field="keperluan">
-          <label for="keperluan">Keperluan</label>
+          <label for="keperluan" id="labelKeperluan">Keperluan</label>
           <textarea id="keperluan" placeholder="cth: PERSYARATAN MELAMAR KERJA"></textarea>
           <small class="err">Keperluan wajib diisi.</small>
         </div>
 
+        <div class="hanya-sehat" id="grupHanyaSehat">
         <div class="field" data-field="tinggi">
           <label for="tinggi">Tinggi Badan <span class="opsional">(cm)</span></label>
           <input id="tinggi" type="number" min="50" max="250" placeholder="cth: 170">
@@ -526,6 +555,7 @@
           </div>
           <input type="hidden" id="butaWarna">
           <small class="err">Pilih salah satu.</small>
+        </div>
         </div>
 
         <label class="pernyataan">
@@ -624,6 +654,7 @@
     nama:document.getElementById('nama'),
     umur:document.getElementById('umur'),
     jenisKelamin:document.getElementById('jenisKelamin'),
+    pekerjaan:document.getElementById('pekerjaan'),
     alamat:document.getElementById('alamat'),
     keperluan:document.getElementById('keperluan'),
     tinggi:document.getElementById('tinggi'),
@@ -632,6 +663,34 @@
     golongan:document.getElementById('golongan'),
     butaWarna:document.getElementById('butaWarna')
   };
+  const jenisSuratInput = document.getElementById('jenisSurat');
+
+  // ---------- toggle Jenis Surat (Sehat / Sakit) ----------
+  const teksLabelKeperluan = {
+    sehat: { label:'Keperluan', placeholder:'cth: PERSYARATAN MELAMAR KERJA', subjudul:'Data Kesehatan' },
+    sakit: { label:'Keterangan Sakit', placeholder:'cth: Yang bersangkutan benar sakit dan perlu istirahat 3 (tiga) hari terhitung mulai tanggal 10 Agustus 2026.', subjudul:'Keterangan' }
+  };
+
+  function terapkanJenisSurat(jenis){
+    jenisSuratInput.value = jenis;
+    document.querySelectorAll('.jenis-surat-btn').forEach(function(btn){
+      btn.classList.toggle('aktif', btn.dataset.jenis === jenis);
+    });
+    document.querySelectorAll('.hanya-sehat').forEach(function(el){ el.style.display = (jenis === 'sehat') ? '' : 'none'; });
+    document.querySelectorAll('.hanya-sakit').forEach(function(el){ el.style.display = (jenis === 'sakit') ? '' : 'none'; });
+
+    const teks = teksLabelKeperluan[jenis];
+    document.getElementById('labelKeperluan').textContent = teks.label;
+    bidang.keperluan.placeholder = teks.placeholder;
+    document.getElementById('subjudulKesehatan').textContent = teks.subjudul;
+
+    // field yang disembunyikan tidak boleh ikut divalidasi/mengunci submit
+    document.querySelectorAll('.field.invalid').forEach(function(el){ el.classList.remove('invalid'); });
+  }
+
+  document.querySelectorAll('.jenis-surat-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){ terapkanJenisSurat(btn.dataset.jenis); });
+  });
 
   // Auto-format Tekanan Darah: petugas cukup ketik angka saja (mis.
   // "12080"), garis miring "/" otomatis disisipkan setelah 3 digit
@@ -661,7 +720,10 @@
   }
 
   function validasiSemuaField(){
-    const kunci = ['nama','umur','jenisKelamin','alamat','keperluan','tinggi','berat','tekanan','golongan','butaWarna'];
+    const kunciBersama = ['nama','umur','jenisKelamin','alamat','keperluan'];
+    const kunciSehat = ['tinggi','berat','tekanan','golongan','butaWarna'];
+    const kunciSakit = ['pekerjaan'];
+    const kunci = kunciBersama.concat(jenisSuratInput.value === 'sakit' ? kunciSakit : kunciSehat);
     let semuaValid = true;
     kunci.forEach(function(k){ if(!validasiField(k)) semuaValid = false; });
     return semuaValid;
@@ -738,9 +800,11 @@
     tampilkanStatus('statusProses');
 
     const payload = {
+      jenisSurat:jenisSuratInput.value,
       nama:bidang.nama.value.trim(),
       umur:bidang.umur.value.trim(),
       jenisKelamin:bidang.jenisKelamin.value.trim(),
+      pekerjaan:bidang.pekerjaan.value.trim(),
       alamat:bidang.alamat.value.trim(),
       keperluan:bidang.keperluan.value.trim(),
       tinggi:bidang.tinggi.value.trim(),
@@ -779,6 +843,7 @@
   document.getElementById('btnAjukanLagi').addEventListener('click', function(){
     form.reset();
     resetSemuaDselect();
+    terapkanJenisSurat('sehat');
     document.querySelectorAll('.field').forEach(function(el){ el.classList.remove('invalid'); });
     btnAjukan.disabled = true;
     form.style.display = '';
@@ -873,6 +938,7 @@
     const idxUmur = idxKolom('Umur');
     const idxJenisKelamin = idxKolom('Jenis Kelamin');
     const idxTanggal = idxKolom('Tanggal Pemeriksaan');
+    const idxJenisSurat = idxKolom('Jenis Surat');
     const kunci = (kataKunci || '').trim().toUpperCase();
 
     const cocok = [];
@@ -892,7 +958,8 @@
     adminDaftar.innerHTML = cocok.map(function(item){
       const r = item.r;
       const umurTeks = r[idxUmur] ? r[idxUmur] + ' th' : '';
-      const sub = [r[idxJenisKelamin], umurTeks, r[idxTanggal]].filter(Boolean).join(' · ');
+      const jenisSuratLabel = idxJenisSurat !== -1 && r[idxJenisSurat] === 'sakit' ? 'Suket Sakit' : 'Suket Sehat';
+      const sub = [jenisSuratLabel, r[idxJenisKelamin], umurTeks, r[idxTanggal]].filter(Boolean).join(' · ');
       const dicentang = adminTerpilih.has(item.i) ? 'checked' : '';
       return '<div class="admin-item" data-index="'+item.i+'">' +
         '<input type="checkbox" class="cek-pilih" data-index="'+item.i+'" '+dicentang+'>' +
@@ -991,10 +1058,15 @@
     adminTampilkanTahap('adminTahapDaftar');
   });
 
-  const RESUME_GRUP = [
+  const RESUME_GRUP_SEHAT = [
     { judul: 'Identitas', field: ['Nama', 'Umur', 'Jenis Kelamin', 'Alamat'] },
     { judul: 'Kesehatan & Keperluan', field: ['Keperluan', 'Tinggi Badan', 'Berat Badan', 'Tekanan Darah', 'Golongan Darah', 'Buta Warna'] },
-    { judul: 'Administrasi', field: ['Hasil Nomor', 'Tanggal Pemeriksaan', 'Timestamp'] }
+    { judul: 'Administrasi', field: ['Jenis Surat', 'Hasil Nomor', 'Tanggal Pemeriksaan', 'Timestamp'] }
+  ];
+  const RESUME_GRUP_SAKIT = [
+    { judul: 'Identitas', field: ['Nama', 'Umur', 'Jenis Kelamin', 'Pekerjaan', 'Alamat'] },
+    { judul: 'Keterangan', field: ['Keperluan'] },
+    { judul: 'Administrasi', field: ['Jenis Surat', 'Hasil Nomor', 'Tanggal Pemeriksaan', 'Timestamp'] }
   ];
   const SATUAN_FIELD = { 'Tinggi Badan': ' cm', 'Berat Badan': ' kg', 'Umur': ' tahun' };
   let resumeIndexAktif = -1;
@@ -1005,13 +1077,16 @@
     resumeIndexAktif = index;
 
     const idxNama = idxKolom('Nama');
+    const idxJenisSurat = idxKolom('Jenis Surat');
     document.getElementById('adminResumeNama').textContent = r[idxNama] || 'Resume Pengajuan';
 
-    const isi = RESUME_GRUP.map(function(grup){
+    const grupDipakai = (idxJenisSurat !== -1 && r[idxJenisSurat] === 'sakit') ? RESUME_GRUP_SAKIT : RESUME_GRUP_SEHAT;
+    const isi = grupDipakai.map(function(grup){
       const baris = grup.field.map(function(nama){
         const idx = idxKolom(nama);
         if(idx === -1) return '';
-        const nilai = (r[idx] || '—') + (SATUAN_FIELD[nama] && r[idx] ? SATUAN_FIELD[nama] : '');
+        const nilaiAsli = nama === 'Jenis Surat' ? (r[idx] === 'sakit' ? 'Suket Sakit' : 'Suket Sehat') : (r[idx] || '—');
+        const nilai = nilaiAsli + (SATUAN_FIELD[nama] && r[idx] ? SATUAN_FIELD[nama] : '');
         return '<div class="admin-resume-baris"><span>'+nama+'</span><span>'+nilai+'</span></div>';
       }).join('');
       return '<div class="admin-resume-grup"><h4>'+grup.judul+'</h4>'+baris+'</div>';
