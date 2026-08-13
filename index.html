@@ -17,6 +17,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- Untuk fitur "Export Excel" di Bank Data -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
   :root{
     color-scheme: dark;
@@ -349,18 +351,34 @@
   .admin-tutup:hover{color:var(--teks);}
   .admin-tahap h3{font-family:var(--font-display);color:var(--emas);margin:0 0 8px;font-size:18px;}
 
-  .admin-judul-baris{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;}
-  .admin-judul-baris h3{margin:0;}
+  .admin-stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px;}
+  .admin-stat-kartu{
+    padding:12px 10px;border-radius:12px;text-align:center;
+    background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);
+  }
+  .admin-stat-kartu.biru{background:rgba(90,160,255,0.08);border-color:rgba(90,160,255,0.25);}
+  .admin-stat-kartu.pink{background:rgba(255,110,180,0.08);border-color:rgba(255,110,180,0.25);}
+  .admin-stat-angka{font-family:var(--font-display);font-size:24px;font-weight:700;color:var(--emerald);line-height:1.1;}
+  .admin-stat-kartu.biru .admin-stat-angka{color:#7FB4FF;}
+  .admin-stat-kartu.pink .admin-stat-angka{color:#FF8FC4;}
+  .admin-stat-label{font-size:10.5px;color:var(--teks-muted);margin-top:4px;text-transform:uppercase;letter-spacing:.04em;}
+
+  .admin-jumlah-baris{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
+  .admin-jumlah-baris .admin-jumlah{margin:0;}
+  .admin-aksi-atas{display:flex;gap:8px;}
   .admin-btn-refresh{
-    display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;
-    width:30px;height:30px;padding:0;border-radius:8px;
+    display:inline-flex;align-items:center;gap:6px;flex-shrink:0;
+    padding:6px 12px;border-radius:8px;
     border:1px solid rgba(232,196,104,0.3);background:rgba(232,196,104,0.08);color:var(--emas);
+    font-family:var(--font-body);font-weight:700;font-size:12px;
     cursor:pointer;
   }
   .admin-btn-refresh:hover{background:rgba(232,196,104,0.18);}
   .admin-btn-refresh:disabled{opacity:.5;cursor:not-allowed;}
   .admin-btn-refresh.memuat svg{animation:putarRefresh .7s linear infinite;}
   @keyframes putarRefresh{to{transform:rotate(360deg);}}
+  .admin-btn-export{border-color:rgba(23,227,160,0.35);background:rgba(23,227,160,0.1);color:var(--emerald);}
+  .admin-btn-export:hover{background:rgba(23,227,160,0.2);}
   .admin-tahap p{color:var(--teks-muted);font-size:13px;margin:0 0 16px;}
   #adminSandi{
     width:100%;padding:12px 14px;border-radius:10px;border:1.4px solid rgba(255,255,255,0.12);
@@ -670,13 +688,36 @@
     </div>
 
     <div class="admin-tahap" id="adminTahapDaftar" style="display:none;">
-      <div class="admin-judul-baris">
-        <h3>Bank Data Pengajuan</h3>
-        <button type="button" id="adminRefresh" class="admin-btn-refresh" aria-label="Muat ulang data" title="Muat ulang data">
-          <svg viewBox="0 0 24 24" fill="none" width="16" height="16"><path d="M4 4v5h5M20 20v-5h-5M4.6 15a8 8 0 0014.4-3M19.4 9A8 8 0 005 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
+      <h3>Bank Data Pengajuan</h3>
+
+      <div class="admin-stat-grid" id="adminStatGrid">
+        <div class="admin-stat-kartu">
+          <div class="admin-stat-angka" id="statTotal">0</div>
+          <div class="admin-stat-label">Total Responden</div>
+        </div>
+        <div class="admin-stat-kartu biru">
+          <div class="admin-stat-angka" id="statLaki">0</div>
+          <div class="admin-stat-label">Laki-laki</div>
+        </div>
+        <div class="admin-stat-kartu pink">
+          <div class="admin-stat-angka" id="statPerempuan">0</div>
+          <div class="admin-stat-label">Perempuan</div>
+        </div>
       </div>
-      <p class="admin-jumlah" id="adminJumlah"></p>
+
+      <div class="admin-jumlah-baris">
+        <p class="admin-jumlah" id="adminJumlah"></p>
+        <div class="admin-aksi-atas">
+          <button type="button" id="adminExportExcel" class="admin-btn-refresh admin-btn-export">
+            <svg viewBox="0 0 24 24" fill="none" width="14" height="14"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 20h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Export Excel
+          </button>
+          <button type="button" id="adminRefresh" class="admin-btn-refresh">
+            <svg viewBox="0 0 24 24" fill="none" width="14" height="14"><path d="M4 4v5h5M20 20v-5h-5M4.6 15a8 8 0 0014.4-3M19.4 9A8 8 0 005 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Refresh
+          </button>
+        </div>
+      </div>
       <input type="text" id="adminCari" placeholder="Cari nama...">
       <div class="admin-bar-pilih" id="adminBarPilih">
         <span id="adminJumlahTerpilih">0 dipilih</span>
@@ -1020,6 +1061,7 @@
         adminTerpilih.clear();
         adminSandiTersimpan = sandi;
         document.getElementById('adminJumlah').textContent = dataBankRows.length + ' data tercatat';
+        perbaruiStatistik();
         adminCari.value = '';
         renderDaftarAdmin('');
         adminTampilkanTahap('adminTahapDaftar');
@@ -1055,6 +1097,7 @@
         dataBankRowNumbers = hasil.rowNumbers || [];
         adminTerpilih.clear();
         document.getElementById('adminJumlah').textContent = dataBankRows.length + ' data tercatat';
+        perbaruiStatistik();
         renderDaftarAdmin(adminCari.value); // kata kunci pencarian yang sedang diketik tetap dipertahankan
       } else {
         alert(hasil.message || 'Gagal memuat ulang data.');
@@ -1068,6 +1111,29 @@
   });
 
   function idxKolom(nama){ return dataBankHeaders.indexOf(nama); }
+
+  function perbaruiStatistik(){
+    const idxJenisKelamin = idxKolom('Jenis Kelamin');
+    let laki = 0, perempuan = 0;
+    dataBankRows.forEach(function(r){
+      const jk = (idxJenisKelamin !== -1 ? r[idxJenisKelamin] : '').toString().trim();
+      if(jk === 'Laki-laki') laki++;
+      else if(jk === 'Perempuan') perempuan++;
+    });
+    document.getElementById('statTotal').textContent = dataBankRows.length;
+    document.getElementById('statLaki').textContent = laki;
+    document.getElementById('statPerempuan').textContent = perempuan;
+  }
+
+  document.getElementById('adminExportExcel').addEventListener('click', function(){
+    if(!dataBankRows.length){ alert('Tidak ada data untuk diexport.'); return; }
+    const dataUntukExcel = [dataBankHeaders].concat(dataBankRows);
+    const ws = XLSX.utils.aoa_to_sheet(dataUntukExcel);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Bank Data');
+    const tanggalFile = new Date().toISOString().slice(0, 10);
+    XLSX.writeFile(wb, 'Bank Data Suket Sehat Sakit ' + tanggalFile + '.xlsx');
+  });
 
   let adminTerpilih = new Set();
 
@@ -1178,6 +1244,7 @@
         });
         adminTerpilih.clear();
         document.getElementById('adminJumlah').textContent = dataBankRows.length + ' data tercatat';
+        perbaruiStatistik();
         renderDaftarAdmin(adminCari.value);
       } else {
         alert(hasil.message || 'Gagal menghapus data terpilih.');
@@ -1275,6 +1342,7 @@
         dataBankRowNumbers.splice(index, 1);
         adminTerpilih.clear();
         document.getElementById('adminJumlah').textContent = dataBankRows.length + ' data tercatat';
+        perbaruiStatistik();
         renderDaftarAdmin(adminCari.value);
         adminTampilkanTahap('adminTahapDaftar');
       } else {
