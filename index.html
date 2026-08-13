@@ -535,6 +535,9 @@
               <li data-value="Penahanan Tersangka">Penahanan Tersangka</li>
               <li data-value="Pelimpahan Tahanan Tahap II Ke Kejaksaan Negeri Mataram">Pelimpahan Tahanan Tahap II Ke Kejaksaan Negeri Mataram</li>
             </ul>
+            <ul class="kombo-saran hanya-sakit" id="komboSaranKeperluanSakit" style="display:none;">
+              <li data-value="Yang bersangkutan benar sakit dan perlu istirahat 3 (tiga) hari terhitung mulai tanggal 4 - 6 Agustus 2026.">Yang bersangkutan benar sakit dan perlu istirahat 3 (tiga) hari terhitung mulai tanggal 4 - 6 Agustus 2026.</li>
+            </ul>
           </div>
           <small class="err">Keperluan wajib diisi.</small>
         </div>
@@ -818,34 +821,43 @@
   pilihDefaultButaWarna();
 
   // ---------- kombobox Keperluan: bisa diketik bebas, ATAU klik untuk
-  // pilih dari daftar saran (cuma tampil untuk Suket Sehat) ----------
-  const keperluanSaran = document.getElementById('komboSaranKeperluan');
-  if(keperluanSaran){
-    bidang.keperluan.addEventListener('focus', function(){
-      if(jenisSuratInput.value === 'sehat'){
-        keperluanSaran.classList.add('terbuka');
-      }
-    });
-    bidang.keperluan.addEventListener('click', function(){
-      if(jenisSuratInput.value === 'sehat'){
-        keperluanSaran.classList.add('terbuka');
-      }
-    });
-    bidang.keperluan.addEventListener('blur', function(){
-      // delay dikit supaya klik pada item saran sempat kebaca dulu
-      // sebelum daftarnya ditutup oleh event blur ini
-      setTimeout(function(){ keperluanSaran.classList.remove('terbuka'); }, 150);
-    });
-    keperluanSaran.querySelectorAll('li').forEach(function(li){
+  // pilih dari daftar saran (daftar beda tergantung Sehat/Sakit) ----------
+  function siapkanSaranKeperluan(elDaftar, jenisTerkait){
+    if(!elDaftar) return;
+    elDaftar.querySelectorAll('li').forEach(function(li){
       li.addEventListener('mousedown', function(e){
         e.preventDefault(); // supaya textarea tidak keburu blur sebelum klik kena
         bidang.keperluan.value = li.dataset.value;
-        keperluanSaran.classList.remove('terbuka');
+        elDaftar.classList.remove('terbuka');
         bidang.keperluan.closest('.field').classList.remove('invalid');
         bidang.keperluan.focus();
       });
     });
   }
+  const keperluanSaranSehat = document.getElementById('komboSaranKeperluan');
+  const keperluanSaranSakit = document.getElementById('komboSaranKeperluanSakit');
+  siapkanSaranKeperluan(keperluanSaranSehat, 'sehat');
+  siapkanSaranKeperluan(keperluanSaranSakit, 'sakit');
+
+  function saranAktifSaatIni(){
+    return jenisSuratInput.value === 'sakit' ? keperluanSaranSakit : keperluanSaranSehat;
+  }
+  bidang.keperluan.addEventListener('focus', function(){
+    const el = saranAktifSaatIni();
+    if(el) el.classList.add('terbuka');
+  });
+  bidang.keperluan.addEventListener('click', function(){
+    const el = saranAktifSaatIni();
+    if(el) el.classList.add('terbuka');
+  });
+  bidang.keperluan.addEventListener('blur', function(){
+    // delay dikit supaya klik pada item saran sempat kebaca dulu
+    // sebelum daftarnya ditutup oleh event blur ini
+    setTimeout(function(){
+      if(keperluanSaranSehat) keperluanSaranSehat.classList.remove('terbuka');
+      if(keperluanSaranSakit) keperluanSaranSakit.classList.remove('terbuka');
+    }, 150);
+  });
 
   function resetSemuaDselect(){
     document.querySelectorAll('.dselect').forEach(function(wrap){
