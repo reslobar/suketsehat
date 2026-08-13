@@ -472,7 +472,7 @@
 
   <div class="card">
 
-    <form id="formSuket" novalidate>
+    <form id="formSuket" novalidate autocomplete="off">
 
       <div class="step aktif" data-step="1">
 
@@ -487,13 +487,13 @@
 
         <div class="field" data-field="nama">
           <label for="nama">Nama Lengkap</label>
-          <input id="nama" type="text" placeholder="cth: I Wayan Aditya Sukarna" autocomplete="name">
+          <input id="nama" type="text" placeholder="cth: I Wayan Aditya Sukarna" autocomplete="off">
           <small class="err">Nama wajib diisi.</small>
         </div>
 
         <div class="field" data-field="umur">
           <label for="umur">Umur <span class="opsional">(tahun)</span></label>
-          <input id="umur" type="number" min="0" max="120" placeholder="cth: 26" inputmode="numeric">
+          <input id="umur" type="number" min="0" max="120" placeholder="cth: 26" inputmode="numeric" autocomplete="off">
           <small class="err">Isi umur yang valid.</small>
         </div>
 
@@ -515,13 +515,13 @@
 
         <div class="field hanya-sakit" data-field="pekerjaan" style="display:none;">
           <label for="pekerjaan">Pekerjaan</label>
-          <input id="pekerjaan" type="text" placeholder="cth: Wiraswasta">
+          <input id="pekerjaan" type="text" placeholder="cth: Wiraswasta" autocomplete="off">
           <small class="err">Pekerjaan wajib diisi.</small>
         </div>
 
         <div class="field" data-field="alamat">
           <label for="alamat">Alamat</label>
-          <textarea id="alamat" placeholder="cth: Dusun Karang Bedil, Gerung, Lombok Barat"></textarea>
+          <textarea id="alamat" placeholder="cth: Dusun Karang Bedil, Gerung, Lombok Barat" autocomplete="off"></textarea>
           <small class="err">Alamat wajib diisi.</small>
         </div>
 
@@ -542,19 +542,19 @@
         <div class="hanya-sehat" id="grupHanyaSehat">
         <div class="field" data-field="tinggi">
           <label for="tinggi">Tinggi Badan <span class="opsional">(cm)</span></label>
-          <input id="tinggi" type="number" min="50" max="250" placeholder="cth: 170">
+          <input id="tinggi" type="number" min="50" max="250" placeholder="cth: 170" autocomplete="off">
           <small class="err">Isi tinggi badan yang valid.</small>
         </div>
 
         <div class="field" data-field="berat">
           <label for="berat">Berat Badan <span class="opsional">(kg)</span></label>
-          <input id="berat" type="number" min="20" max="200" placeholder="cth: 74">
+          <input id="berat" type="number" min="20" max="200" placeholder="cth: 74" autocomplete="off">
           <small class="err">Isi berat badan yang valid.</small>
         </div>
 
         <div class="field" data-field="tekanan">
           <label for="tekanan">Tekanan Darah</label>
-          <input id="tekanan" class="mono" type="text" placeholder="cth: 120/80 mmHg">
+          <input id="tekanan" class="mono" type="text" placeholder="cth: 120/80 mmHg" autocomplete="off">
           <small class="err">Tekanan darah wajib diisi.</small>
         </div>
 
