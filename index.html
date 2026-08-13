@@ -348,6 +348,19 @@
   }
   .admin-tutup:hover{color:var(--teks);}
   .admin-tahap h3{font-family:var(--font-display);color:var(--emas);margin:0 0 8px;font-size:18px;}
+
+  .admin-judul-baris{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;}
+  .admin-judul-baris h3{margin:0;}
+  .admin-btn-refresh{
+    display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;
+    width:30px;height:30px;padding:0;border-radius:8px;
+    border:1px solid rgba(232,196,104,0.3);background:rgba(232,196,104,0.08);color:var(--emas);
+    cursor:pointer;
+  }
+  .admin-btn-refresh:hover{background:rgba(232,196,104,0.18);}
+  .admin-btn-refresh:disabled{opacity:.5;cursor:not-allowed;}
+  .admin-btn-refresh.memuat svg{animation:putarRefresh .7s linear infinite;}
+  @keyframes putarRefresh{to{transform:rotate(360deg);}}
   .admin-tahap p{color:var(--teks-muted);font-size:13px;margin:0 0 16px;}
   #adminSandi{
     width:100%;padding:12px 14px;border-radius:10px;border:1.4px solid rgba(255,255,255,0.12);
@@ -657,7 +670,12 @@
     </div>
 
     <div class="admin-tahap" id="adminTahapDaftar" style="display:none;">
-      <h3>Bank Data Pengajuan</h3>
+      <div class="admin-judul-baris">
+        <h3>Bank Data Pengajuan</h3>
+        <button type="button" id="adminRefresh" class="admin-btn-refresh" aria-label="Muat ulang data" title="Muat ulang data">
+          <svg viewBox="0 0 24 24" fill="none" width="16" height="16"><path d="M4 4v5h5M20 20v-5h-5M4.6 15a8 8 0 0014.4-3M19.4 9A8 8 0 005 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
       <p class="admin-jumlah" id="adminJumlah"></p>
       <input type="text" id="adminCari" placeholder="Cari nama...">
       <div class="admin-bar-pilih" id="adminBarPilih">
@@ -1016,6 +1034,38 @@
   }
   adminMasuk.addEventListener('click', adminMasukProses);
   adminSandi.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ adminMasukProses(); } });
+
+  document.getElementById('adminRefresh').addEventListener('click', function(){
+    const tombol = this;
+    tombol.disabled = true;
+    tombol.classList.add('memuat');
+
+    fetch(API_URL, {
+      method:'POST',
+      headers:{ 'Content-Type':'text/plain;charset=utf-8' },
+      body:JSON.stringify({ action:'lihatData', password:adminSandiTersimpan })
+    })
+    .then(function(res){ return res.json(); })
+    .then(function(hasil){
+      tombol.disabled = false;
+      tombol.classList.remove('memuat');
+      if(hasil.success){
+        dataBankHeaders = hasil.headers;
+        dataBankRows = hasil.rows;
+        dataBankRowNumbers = hasil.rowNumbers || [];
+        adminTerpilih.clear();
+        document.getElementById('adminJumlah').textContent = dataBankRows.length + ' data tercatat';
+        renderDaftarAdmin(adminCari.value); // kata kunci pencarian yang sedang diketik tetap dipertahankan
+      } else {
+        alert(hasil.message || 'Gagal memuat ulang data.');
+      }
+    })
+    .catch(function(){
+      tombol.disabled = false;
+      tombol.classList.remove('memuat');
+      alert('Tidak dapat terhubung ke server.');
+    });
+  });
 
   function idxKolom(nama){ return dataBankHeaders.indexOf(nama); }
 
